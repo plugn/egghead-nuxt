@@ -1,3 +1,4 @@
+import apiConf from '../api.conf.json'
 import axios from 'axios'
 
 export const state = {
@@ -25,20 +26,20 @@ export const mutations = {
 
 export const actions = {
     async add({commit}, task) {
-        const res = await axios.post('https://todos-cuvsmolowg.now.sh/todos',
+        const res = await axios.post(`${apiConf.baseUrl}/todos`,
             { task, complete: false })
 
         commit('add', res.data)
     },
 
     async remove({commit}, todo) {
-        const res = await axios.delete(`https://todos-cuvsmolowg.now.sh/todos/${todo.id}`)
+        const res = await axios.delete(`${apiConf.baseUrl}/todos/${todo.id}`)
 
         commit('remove', todo)
     },
 
     async toggle({commit}, todo) {
-        const res = await axios.patch(`https://todos-cuvsmolowg.now.sh/todos/${todo.id}`,
+        const res = await axios.patch(`${apiConf.baseUrl}/todos/${todo.id}`,
             {
                 complete: !todo.complete
             })
